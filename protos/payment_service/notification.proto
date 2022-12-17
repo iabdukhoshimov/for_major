@@ -1,0 +1,36 @@
+syntax="proto3";
+
+package payments;
+option go_package="genproto/payment_service";
+
+service NotificationService {
+    rpc CreateNotification (CreateNotificationRequest) returns (Empty) {};
+    rpc GetByUserID (GetByUserIDRequest) returns (GetByUserIDResponse) {};
+    rpc UpdateViewed (UpdateViewedRequest) returns (Empty) {};
+}
+
+message UpdateViewedRequest {
+    string id = 1;
+}
+
+message CreateNotificationRequest {
+    string journal_id = 1;
+}
+
+message Empty {}
+
+
+message GetByUserIDRequest {
+    string user_id = 1;
+}
+
+message Notification {
+    string id = 1;
+    string user_id = 2;
+    string journal_id = 3;
+    int32 viewed = 4;
+}
+
+message GetByUserIDResponse {
+    repeated Notification items = 1;
+}

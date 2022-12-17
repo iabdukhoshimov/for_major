@@ -1,0 +1,13 @@
+syntax="proto3";
+
+package publisher;
+option go_package="genproto/publisher_service";
+
+service PublisherService {
+    rpc CreateMultipartUploaded(MultipartUloaded) returns (MultipartUloaded) {}
+}
+
+message MultipartUloaded {
+    string key = 1;
+    string story = 2;
+}

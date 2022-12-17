@@ -1,0 +1,78 @@
+syntax = "proto3";
+package user_service;
+
+option go_package="genproto/user_service";
+
+message Admin {
+    string id = 1;
+    string access_token = 2;
+    string name = 3;
+    string username = 4;
+    string phone_number = 6;
+    bool   active = 7;
+    string created_at = 11;
+    string updated_at = 12;
+    repeated Permission permissions = 13;
+    
+}
+
+message Customer {
+    string id = 1;
+    string access_token = 2;
+    string name = 3;
+    string work_place = 4;
+    string phone_number = 5;
+    bool   active = 6;
+    bool   phone_verified = 7;
+    string address = 8;
+    string gender = 9;
+    string date_of_birth = 10;
+    string avatar = 11;
+    string created_at = 12;
+    string updated_at = 13;
+    string deleted_at = 14;
+    string email = 16;
+}
+
+message UserActivity {
+    message User {
+        string id = 1;
+        string name = 2;
+        string username = 3;
+        string phone_number = 4;
+    }
+    string id = 1;
+    User user = 2;
+    string action = 5;
+    string from_value = 6;
+    string to_value = 7;
+    string time = 8;
+}
+
+message Permission {
+    string name = 1;
+    string key = 2;
+    string id = 3;
+}
+
+
+message GetRequest {
+    string id = 1;
+    string slug = 2;
+}
+
+message FindRequest {
+    int32  page = 1;
+    string  search = 2;
+    bool    active = 3;
+    bool    inactive = 4;
+    int32  limit = 5;
+}
+
+message DeleteRequest {
+    string id = 1;
+}
+
+message Empty {
+}
+

@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package user_service;
+
+option go_package="genproto/user_service";
+
+import "user.proto";
+
+service CustomerService {
+    rpc CreateUser(Customer) returns (CustomerResponse) {}
+    rpc GetUser(GetCustomerRequest) returns (CustomerResponse) {}
+    rpc Find(FindRequest) returns (CustomersResponse) {}
+    rpc UpdateUser(Customer) returns (CustomerResponse) {}
+    rpc DeleteUser(DeleteRequest) returns (Empty) {}
+    rpc ExistsCustomer(ExistsCustomerRequest) returns (ExistsCustomerResponse) {}
+    rpc GetByLogin(Customer) returns (Customer) {}
+    rpc SendVerificationCode(PhoneVerification) returns (Empty) {}
+    rpc VerifyPhone(PhoneVerification) returns (PhoneVerification) {}
+    rpc UpdateSpecificFields (UpdateSpecificFieldsRequest) returns (Empty);
+    rpc GetSpecificFields (GetSpecificFieldsRequest) returns (GetSpecificFieldsResponse);
+    rpc EditCustomerPhoneNumber(EditCustomerPhoneNumberRequest) returns (Empty) {}
+}
+
+message GetSpecificFieldsRequest {
+    string user_id = 1;
+}
+
+message GetSpecificFieldsResponse {
+    string user_id = 1;
+    int32 platform = 2;
+}
+
+message UserDetails {
+    string user_id = 1;
+}
+
+message CustomerResponse {
+    Customer customer = 1;
+    string sms_id = 2;
+}
+
+message CustomersResponse {
+    repeated Customer customers = 1;
+    int32 count = 2;
+}
+
+message GetCustomerRequest {
+    string id = 1;
+    string phone_number = 2;
+}
+
+message ExistsCustomerRequest {
+    string phone_number = 1;
+}
+
+message ExistsCustomerResponse {
+    bool exists = 1;
+}
+
+message PhoneVerification {
+    string phone_number = 1;
+    string code = 2;
+}
+
+message UpdateSpecificFieldsRequest {
+    string id = 1;
+}
+
+message EditCustomerPhoneNumberRequest {
+    string user_id = 1;
+    string phone_number = 2;
+}

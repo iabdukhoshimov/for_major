@@ -1,0 +1,125 @@
+syntax="proto3";
+
+package payments;
+option go_package="genproto/payment_service";
+
+service OrderService {
+    rpc Create (CreatePurchaseRequest) returns (CreatePurchaseResponse) {};
+    rpc CreateSvodOrder (CreatePurchaseSvodRequest) returns (CreatePurchaseSvodResponse) {};
+    rpc Get (GetPurchaseRequest) returns (GetPurchaseResponse) {};
+    rpc GetSvodOrder (GetPurchaseRequest) returns (GetPurchaseSvodResponse) {};
+    rpc GetList (GetPurchaseListRequest) returns (GetPurchaseListResponse) {};
+    rpc GetSvodOrderList (GetPurchaseListRequest) returns (GetPurchaseSvodListResponse) {};
+    rpc CheckHasAccess (CheckHasAccessRequest) returns (CheckHasAccessResponse) {};
+    rpc UpdateOrderType (UpdateOrderTypeRequest) returns (CustomEmpty) {};
+    rpc UpdateTariffOrderType (UpdateOrderTypeRequest) returns (CustomEmpty) {};
+}
+
+message CustomEmpty {}
+
+message UpdateOrderTypeRequest {
+    string id = 1;
+    int32 order_type = 2;
+}
+
+message GetPurchaseListRequest{
+    string user_id = 1;
+    string order_id = 2;
+    string status = 3;
+    string limit = 4;
+    string offset = 5;
+}
+
+message GetPurchaseListResponse{
+    repeated Purchase orders = 1;
+}
+
+message GetPurchaseRequest{
+    string id = 1;
+    string user_id = 2;
+}
+
+
+message GetPurchaseSvodListResponse{
+    repeated PurchaseSvod orders = 1;
+}
+
+message GetPurchaseResponse{
+    Purchase purchase = 1;
+}
+
+message GetPurchaseSvodResponse{
+    PurchaseSvod purchase = 1;
+}
+
+message PurchaseSvod {
+    string user_id = 1;
+    string product_id = 2;
+    string id = 3;
+    string tariff_id = 4;
+    int32 order_type = 5;
+    string created_at = 6;
+}
+
+
+message Purchase{
+    string id = 1;
+    string user_id = 2;
+    string product_id = 3;
+    string product_type = 4;
+    string product_name = 5;
+    string status = 6;
+    string created_at = 7;
+    string updated_at = 8;
+    int32 order_type = 9;
+    string method = 10;
+    int32 amount = 11;
+    string name = 12;
+    string phone_number = 13;
+}
+
+message CreatePurchaseRequest {
+    string user_id = 1;
+    string product_id = 2;
+    int32 price = 3;
+    string product_type = 4;
+    string status = 5;
+    string product_name = 6;
+    int32 order_type = 7;
+}
+
+message CreatePurchaseResponse {
+    string user_id = 1;
+    string product_id = 2;
+    string id = 3;
+}
+
+message CreatePurchaseSvodRequest {
+    string user_id = 1;
+    string product_id = 2;
+    int32 price = 3;
+    string status = 5;
+    string tariff_id = 6;
+    string tariff_period = 7;
+    int32 order_type = 8;
+}
+
+message CreatePurchaseSvodResponse {
+    string user_id = 1;
+    string product_id = 2;
+    string id = 3;
+    string tariff_id = 4;
+    string created_at = 5;
+}
+
+message CheckHasAccessRequest {
+    string product_id = 1;
+    string user_id = 2;
+    string product_type = 3;
+    int32 order_type = 4;
+}
+
+
+message CheckHasAccessResponse {
+    bool has_access = 1;
+}
